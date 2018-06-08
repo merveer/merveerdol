@@ -13,12 +13,23 @@ const queryMe = graphConnection.graph.query(gql`{
   }
 }`)
 
+const queryAccounts = graphConnection.graph.query(gql`{
+  allAccounts{
+   website {
+     id
+     url
+   }
+  }
+}`)
+
 export default store({
   state: {
     me: {},
+    allAccounts: {}
   },
   getters: {
     me: state => state.me,
+    allAccounts: state => state.allAccounts
   },
   actions: {
     async getMe ({ commit }) {
@@ -26,9 +37,16 @@ export default store({
       commit('SET_ME', results.Me)
     }
   },
+  async getAccounts ({ commit }) {
+    const results = await queryAccounts()
+    commit('SET_ACCOUNT', results.allAccounts)
+  },
   mutations: {
     SET_ME (state, results) {
       state.me = results
+    },
+    SET_ACCOUNT (state, results) {
+      state.allAccounts = results
     }
   }
 })

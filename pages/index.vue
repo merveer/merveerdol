@@ -19,11 +19,14 @@
       if (data) {
         return {
           me: data,
+          accounts: data.accounts
         }
       } else {
         await store.dispatch('me/getMe')
+        await store.dispatch('allAccounts/getAccounts')
         return {
-          me: store.getters['me/me']
+          me: store.getters['me/me'],
+          allAccounts: store.getters['allAccounts/allAccounts']
         }
       }
     },
