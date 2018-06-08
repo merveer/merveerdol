@@ -1,0 +1,32 @@
+// --------------------
+// Breakpoint
+// --------------------
+
+// ipad-landscape
+@mixin lg {
+    @media (max-width: 1024px) {
+      @content;
+    }
+  }
+  
+  // ipad-portrait
+  @mixin md {
+    @media (max-width: 812px) {
+      @content;
+    }
+  }
+  
+  // iphone-landscape
+  @mixin sm {
+    @media (max-width: 667px) {
+      @content;
+    }
+  }
+  
+  // iphone-portrait
+  @mixin xs {
+    @media (max-width: 414px) {
+      @content;
+    }
+  }
+  
