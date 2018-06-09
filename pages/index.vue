@@ -6,10 +6,10 @@
         | {{ me.nameSurname }}
       h2.home__subtitle
         | {{ me.title }}
-      h2.home__socialmedia
-        a(href="http://github.com/merveer") Github 
-        a(href='http://twitter.com/merveuygunerdol') Twitter 
-        a(href="https://www.codewars.com/users/merveerdol") Codewars 
+      h2.home__subtitle
+        | {{ me.description }}
+      h2.home__socialmedia(v-for='website in me.accounts.websites')
+        a(:href="`${website.url}`", target="_blank") {{ website.name }}
 </template>
 
 <script>
@@ -19,14 +19,11 @@
       if (data) {
         return {
           me: data,
-          accounts: data.accounts
         }
       } else {
         await store.dispatch('me/getMe')
-        await store.dispatch('allAccounts/getAccounts')
         return {
           me: store.getters['me/me'],
-          allAccounts: store.getters['allAccounts/allAccounts']
         }
       }
     },

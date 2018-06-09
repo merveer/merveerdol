@@ -6,47 +6,43 @@ const queryMe = graphConnection.graph.query(gql`{
   Me(userName: "merve-erdol") {
     nameSurname
     title
-    websites {
-      name
-      url
+    userName
+    description
+    accounts {
+      userName
+      websites {
+        name
+        url
+      }
     }
-  }
-}`)
-
-const queryAccounts = graphConnection.graph.query(gql`{
-  allAccounts{
-   website {
-     id
-     url
-   }
   }
 }`)
 
 export default store({
   state: {
     me: {},
-    allAccounts: {}
+    //accounts: []
   },
   getters: {
     me: state => state.me,
-    allAccounts: state => state.allAccounts
+    //accounts: state => state.accounts
   },
   actions: {
     async getMe ({ commit }) {
       const results = await queryMe()
       commit('SET_ME', results.Me)
-    }
-  },
-  async getAccounts ({ commit }) {
-    const results = await queryAccounts()
-    commit('SET_ACCOUNT', results.allAccounts)
+    },
+    // async getAccounts ({ commit }) {
+    //   const accounts = await queryAccounts()
+    //   commit('SET_ALL_ACCOUNTS', accounts.allAccounts)
+    // },
   },
   mutations: {
     SET_ME (state, results) {
       state.me = results
     },
-    SET_ACCOUNT (state, results) {
-      state.allAccounts = results
-    }
+    // SET_ALL_ACCOUNTS (state, result) {
+    //   state.accounts = result
+    // }
   }
 })
