@@ -1,7 +1,7 @@
 <template lang="pug">
   section.home
     div
-      img.home__img(src='~/assets/logo.png')
+      img.home__img(src='~/assets/logo.jpg')
       h1.home__title
         | {{ me.nameSurname }}
       h2.home__subtitle
