@@ -29,7 +29,28 @@
     },
     async mounted () {
       console.log(this.me)
-    }
+    },
+    head () {
+      return {
+        title: 'Merve UYGUN ERDOL',
+        meta: [
+          { name: 'description', hid: 'description', content: 'Frontend Developer Intern at edelkrone' },
+          // Open Grapg
+          { name: 'og:title', content: 'Merve UYGUN ERDOL' },
+          { name: 'og:description', content: 'Frontend Developer Intern at edelkrone' },
+          { name: 'og:type', content: 'website' },
+          { name: 'og:url', content: `https://merveerdol.com` },
+          { name: 'og:image', content: `http://www.merveerdol.com/_nuxt/img/logo.f2fd92d.jpg` },
+          // Twitter Card
+          { name: 'twitter:card', content: 'summary' },
+          { name: 'twitter:site', content: '@merveerdol' },
+          { name: 'twitter:title', content: 'Merve UYGUN ERDOL' },
+          { name: 'twitter:description', content: 'Frontend Developer Intern at edelkrone' },
+          { name: 'twitter:image', content: `http://www.merveerdol.com/_nuxt/img/logo.f2fd92d.jpg` },
+          { name: 'twitter:image:alt', content: 'Merve UYGUN ERDOL' }
+        ]
+      }
+    },
  }
 </script>
 
