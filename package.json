@@ -5,6 +5,9 @@
   "author": "Merve Erdol <merve-uygun@windowslive.com>",
   "private": true,
   "scripts": {
+    "build:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt build",
+    "generate:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt generate",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup",
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
@@ -25,6 +28,7 @@
     "eslint-loader": "^1.7.1",
     "eslint-plugin-vue": "^4.0.0",
     "node-sass": "^4.9.0",
+    "push-dir": "^0.4.1",
     "sass-loader": "^7.0.3"
   }
 }
