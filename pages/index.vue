@@ -1,56 +1,35 @@
 <template lang="pug">
   section.home
     div
-      img.home__img(src='~/assets/logo.jpg')
+      img.home__img(src='~/assets/edelkrone_logo.png')
       h1.home__title
-        | {{ me.nameSurname }}
-      h2.home__subtitle
-        | {{ me.title }}
-      h2.home__subtitle
-        | {{ me.description }}
-      h2.home__socialmedia(v-for='website in me.accounts.websites')
-        a(:href="`${website.url}`", target="_blank") {{ website.name }}
+        | Frontend Development   
+        span Team
+          div(v-for="item in me" :key="item.userName"  )
+            template(v-if="item.userName === 'merve'")
+              h2.home__subtitle
+                |<nuxt-link :to="'/users/'+item.userName">{{ item.nameSurname }} </nuxt-link> 
+            template(v-if="item.userName === 'dogukan'") 
+              h2.home__subtitle
+                |<nuxt-link :to="'/users/'+item.userName"> {{ item.nameSurname }} </nuxt-link> 
+                
 </template>
 
 <script>
   export default {
-    async asyncData ({ store, params, error, payload }) {
-      let data = payload
-      if (data) {
-        return {
-          me: data,
-        }
-      } else {
-        await store.dispatch('me/getMe')
-        return {
-          me: store.getters['me/me'],
+  async asyncData ({ store, params, error, payload }) {
+        let data = payload
+        if (data) {
+          return {
+            me: data,
+          }
+        } else {
+          await store.dispatch('me/getAllMes')
+          return {
+            me: store.getters['me/mes'],
+          }
         }
       }
-    },
-    async mounted () {
-      console.log(this.me)
-    },
-    head () {
-      return {
-        title: 'Merve UYGUN ERDOL',
-        meta: [
-          { name: 'description', hid: 'description', content: 'Frontend Developer Intern at edelkrone' },
-          // Open Grapg
-          { name: 'og:title', content: 'Merve UYGUN ERDOL' },
-          { name: 'og:description', content: 'Frontend Developer Intern at edelkrone' },
-          { name: 'og:type', content: 'website' },
-          { name: 'og:url', content: `https://merveerdol.com` },
-          { name: 'og:image', content: `http://www.merveerdol.com/_nuxt/img/logo.f2fd92d.jpg` },
-          // Twitter Card
-          { name: 'twitter:card', content: 'summary' },
-          { name: 'twitter:site', content: '@merveerdol' },
-          { name: 'twitter:title', content: 'Merve UYGUN ERDOL' },
-          { name: 'twitter:description', content: 'Frontend Developer Intern at edelkrone' },
-          { name: 'twitter:image', content: `http://www.merveerdol.com/_nuxt/img/logo.f2fd92d.jpg` },
-          { name: 'twitter:image:alt', content: 'Merve UYGUN ERDOL' }
-        ]
-      }
-    },
  }
 </script>
 
@@ -69,13 +48,14 @@
       margin-left: auto;
       margin-right: auto;
       width: 40%;
-      border-radius: 50%;
     }
     &__title {
       font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
       display: block;
+      padding-top: 90px;
+      padding-bottom: 84px;
       font-weight: 300;
-      font-size: 100px;
+      font-size: 60px;
       color:$mainColor;
       letter-spacing: 1px;
       @include md {
@@ -125,6 +105,9 @@
         color:#F9536D
       }
     }
+    span{
+      font-weight: 600
+     }
   }
 
 </style>

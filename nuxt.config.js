@@ -3,6 +3,31 @@ const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
     base: '/merveerdol/'
   }
 } : {}
+const graphql = require('graphql.js')
+const forEach = require('lodash/forEach')
+const graph = graphql("https://api.graph.cool/simple/v1/cji4bl8hm6h0x0119u5g73eo8", {
+  asJSON: true
+})
+
+const queryMes = graph(`query {
+  {
+    allMes {
+      id
+      title
+      nameSurname
+      userName
+      isActiveWorker
+      createdAt
+      accounts {
+        websites {
+          url
+          name
+        }
+      }
+    }
+  }
+}`)
+
 module.exports = {
   ...routerBase,
   /*
@@ -39,6 +64,19 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+    }
+  },
+  generate: {
+    async routes () {
+      const urls = []
+      const results = await queryMes()
+      forEach(results.allMes, function (me) {
+        urls.push({
+          route: `/${me.userName}`,
+          payload: me
+        })
+      })
+      return urls
     }
   }
 }
