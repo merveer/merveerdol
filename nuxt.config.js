@@ -52,19 +52,30 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    /*
-    ** Run ESLint on save
-    */
-    extend (config, { isDev, isClient }) {
-      if (isDev && isClient) {
+    extend (config, ctx) {
+      if (ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/
+          exclude: /(node_modules)/,
+          options: {
+            formatter: require('eslint-friendly-formatter')
+          }
         })
       }
-    }
+    },
+    loaders: [
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'url-loader',
+        exclude: /assets\/svg/,
+        options: {
+          limit: 1000,
+          name: 'img/[name].[hash:8].[ext]'
+        }
+      }
+    ],
   },
   generate: {
     async routes () {
@@ -72,7 +83,7 @@ module.exports = {
       const results = await queryMes()
       forEach(results.allMes, function (me) {
         urls.push({
-          route: `/${me.userName}`,
+          route: `/users/${me.userName}`,
           payload: me
         })
       })
