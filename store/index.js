@@ -1,9 +1,12 @@
 import Vuex from 'vuex'
 
+import i18n from '../store/globals/i18n'
+
 import MeStore from '../store/modules/me'
 
 export default () => new Vuex.Store({
   modules: {
-    me: MeStore
+    i18n,
+    me: MeStore,
   }
 })

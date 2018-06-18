@@ -1,6 +1,7 @@
 <template lang="pug">
   section.home
     div
+      h1.home__title {{ $t("globals.welcome") }}
       img.home__img(src='~/assets/edelkrone_logo.png')
       h1.home__title
         | Frontend Development   
@@ -8,28 +9,29 @@
           div(v-for="item in me" :key="item.userName"  )
             template(v-if="item.userName === 'merve'")
               h2.home__subtitle
-                |<nuxt-link :to="'/users/'+item.userName">{{ item.nameSurname }} </nuxt-link> 
+                nuxt-link(:to="'/users/'+item.userName") {{ item.nameSurname }} 
             template(v-if="item.userName === 'dogukan'") 
               h2.home__subtitle
-                |<nuxt-link :to="'/users/'+item.userName"> {{ item.nameSurname }} </nuxt-link> 
+                nuxt-link(:to="'/users/'+item.userName") {{ item.nameSurname }} 
                 
 </template>
 
 <script>
   export default {
+  layout: 'main',
   async asyncData ({ store, params, error, payload }) {
-        let data = payload
-        if (data) {
-          return {
-            me: data,
-          }
-        } else {
-          await store.dispatch('me/getAllMes')
-          return {
-            me: store.getters['me/mes'],
-          }
+    let data = payload
+      if (data) {
+        return {
+        me: data,
+        }
+      } else {
+        await store.dispatch('me/getAllMes')
+        return {
+          me: store.getters['me/mes'],
         }
       }
+    }
  }
 </script>
 

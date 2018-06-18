@@ -1,7 +1,11 @@
 <template lang="pug">
   section.user
     div
-      img.user__img(src='~/assets/logo.jpg')
+      div(v-for="item in me" :key="item.userName"  )
+        template(v-if="item.userName === 'merve'")
+          img.user__img(src='~/assets/logo.jpg')
+        template(v-if="item.userName === 'dogukan'")
+          img.user__img(src='~/assets/dogukan.jpg')
       h1.user__title
         | {{ me.nameSurname }}
       h2.user__subtitle
@@ -14,6 +18,7 @@
 
 <script>
   export default {
+    layout: "main",
     async asyncData ({ store, params, error, payload }) {
       let data = payload
       if (data) {

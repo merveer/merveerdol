@@ -10,7 +10,6 @@ const graph = graphql("https://api.graph.cool/simple/v1/cji4bl8hm6h0x0119u5g73eo
 })
 
 const queryMes = graph(`query {
-  {
     allMes {
       id
       title
@@ -25,7 +24,6 @@ const queryMes = graph(`query {
         }
       }
     }
-  }
 }`)
 
 module.exports = {
@@ -76,7 +74,13 @@ module.exports = {
         }
       }
     ],
+    vendor: [
+      'vue-i18n'
+    ]
   },
+  plugins: [
+    { src: '~/plugins/i18n' }
+  ],
   generate: {
     async routes () {
       const urls = []
